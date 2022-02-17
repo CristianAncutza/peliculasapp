@@ -1,23 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:peliculasapp/models/models.dart';
 
-class MovieSlider extends StatelessWidget {
+class MovieSlider extends StatefulWidget {
+  final List<Movie> movies;
+
+  final String? title;
+
+  const MovieSlider({
+    Key? key,
+    required this.movies,
+    this.title,
+    Set Function()? onNextPage,
+  }) : super(key: key);
+
+  @override
+  State<MovieSlider> createState() => _MovieSliderState();
+
+  void onNextPage() {}
+}
+
+class _MovieSliderState extends State<MovieSlider> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent) widget.onNextPage();
+    });
+    // TODO: implement initState
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity,
-        height: 250,
+        height: 260,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text('Populares',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
+            if (this.widget.title != null)
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Text('Populares',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
             SizedBox(height: 5),
             Expanded(
               child: ListView.builder(
+                  controller: scrollController,
                   scrollDirection: Axis.horizontal,
                   itemCount: 20,
                   itemBuilder: (_, int index) => _MoviePoster()),

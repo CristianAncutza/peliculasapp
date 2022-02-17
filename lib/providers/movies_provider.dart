@@ -24,11 +24,15 @@ class MoviesProvider extends ChangeNotifier {
         {'api_key': _apiKey, 'language': _language, 'page': '1'});
 
     var response = await http.get(url);
+
+    //_popularPage++;
+    //final jsonData = await this._getJsonData('3/movie/popular');
     final popularResponse = NowPlayingResponse.fromJson(response.body);
 
     popularMovies = [...popularMovies, ...popularResponse.results];
 
-    print(popularMovies[0]);
     notifyListeners();
   }
 }
+
+class _getJsonData {}
