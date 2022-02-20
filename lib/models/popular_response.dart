@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'movie.dart';
+import 'package:peliculasapp/models/models.dart';
 
 class PopularResponse {
   PopularResponse({

@@ -22,7 +22,7 @@ class Movie {
   String? backdropPath;
   List<int> genreIds;
   int id;
-  OriginalLanguage originalLanguage;
+  String originalLanguage;
   String originalTitle;
   String overview;
   double popularity;
@@ -33,9 +33,19 @@ class Movie {
   double voteAverage;
   int voteCount;
 
+  String? heroId;
+
   get fullPosterImg {
     if (this.posterPath != null)
       return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
+
+    return 'https://i.stack.imgur.com/GNhxO.png';
+  }
+
+  get fullBackdropPath {
+    if (this.backdropPath != null)
+      return 'https://image.tmdb.org/t/p/w500${this.backdropPath}';
+
     return 'https://i.stack.imgur.com/GNhxO.png';
   }
 
@@ -58,5 +68,3 @@ class Movie {
         voteCount: json["vote_count"],
       );
 }
-
-enum OriginalLanguage { EN }
